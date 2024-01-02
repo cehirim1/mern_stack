@@ -26,3 +26,6 @@ app.get('/api/items', (req, res) => {
 app.listen(5000, () => {
   console.log('Server is listening on port 5000....')
 })
+
+//morgan module can be used in place of a custom middleware function. it is a request logger middleware for node.js
+//which has several built-in loggers.

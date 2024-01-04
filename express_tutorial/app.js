@@ -1,28 +1,23 @@
-const express = require("express");
-const app = express();
-const logger = require("./logger");
-const authorize = require("./authorize");
-const morgan = require("morgan");
-//  req => middleware => res
-// app.use([logger, authorize]);
-// api/home/about/products
-app.use(morgan('tiny'))
+const express = require('express')
+const app = express()
 
-app.get("/", (req, res) => {
-  res.send("Home");
-});
-app.get("/about", (req, res) => {
-  res.send("About");
-});
-app.get("/api/products", (req, res) => {
-  res.send("Products");
-});
-app.get("/api/items", (req, res) => {
-  res.send("Items");
-});
+const people = require('./controllers/fewer_route_code')
+const auth = require('./routes/auth')
+
+// static assets
+app.use(express.static('./methods-public'))
+// parse form data
+app.use(express.urlencoded({ extended: false }))
+// parse json
+app.use(express.json())
+
+//base route
+app.use('/api/people', people)
+app.use('/login', auth)
 
 app.listen(5000, () => {
-  console.log("Server is listening on port 5000....");
-});
+  console.log('Server is listening on port 5000....')
+})
 
-//to execute multiple middleware functions, you place them in an array which are executed in the order they are passed in
+//with multiple routes, we can use the express.Router() method to create a new router.
+//MVC is a great pattern/convention for managing our application.

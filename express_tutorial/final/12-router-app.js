@@ -17,3 +17,6 @@ app.use('/login', auth)
 app.listen(5000, () => {
   console.log('Server is listening on port 5000....')
 })
+
+//with multiple routes, we can use the express.Router() method to create a new router.
+//MVC is a great pattern/convention for managing our application.
